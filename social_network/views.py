@@ -1,36 +1,49 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
+
+from .models import User, Post, Like
 
 
 def users(request):
-    users = "Users"
-    return HttpResponse(users)
+    users = User.objects.order_by('id')
+    output = ', '.join([u.email for u in users])
+    return HttpResponse(output)
 
 
 def users_signup(request):
-    users = "Users Signup"
-    return HttpResponse(users)
+    output = "Users Signup"
+    return HttpResponse(output)
 
 
 def users_login(request):
-    users = "Users Login"
-    return HttpResponse(users)
+    output = "Users Login"
+    return HttpResponse(output)
 
 
 def posts(request):
-    posts = "Posts"
-    return HttpResponse(posts)
+    posts = Post.objects.order_by('date')
+    output = '; '.join([p.content for p in posts])
+    return HttpResponse(output)
+
+
+def posts_view(request, post_id):
+    try:
+        post = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        raise Http404("Post does not exiast!")
+    output = "Posts %s" % post.id
+    return HttpResponse(output)
 
 
 def posts_create(request):
-    posts = "Posts Create"
-    return HttpResponse(posts)
+    output = "Posts Create"
+    return HttpResponse(output)
 
 
 def posts_like(request, post_id):
-    posts = "Posts Like %s" % post_id
-    return HttpResponse(posts)
+    output = "Posts Like %s" % post_id
+    return HttpResponse(output)
 
 
 def posts_unlike(request, post_id):
-    posts = "Posts Unlike %s" % post_id
-    return HttpResponse(posts)
+    output = "Posts Unlike %s" % post_id
+    return HttpResponse(output)
