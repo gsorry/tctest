@@ -1,14 +1,17 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils import timezone
 
-class User(models.Model):
+
+class User(AbstractUser):
     """
     User Model
 
     """
-    email = models.EmailField()
-    password = models.CharField(max_length=200)
-    last_login = models.DateTimeField('last login', default=timezone.now)
+    username = None
+    email = models.EmailField(unique=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
