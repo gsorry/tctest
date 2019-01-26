@@ -13,6 +13,8 @@ from .serializers import UserSerializer, PostSerializer, LikeSerializer
 
 from .models import User, Post, Like
 
+import clearbit
+
 
 class UserViewSet(ViewSet):
     """
@@ -29,11 +31,15 @@ class UserViewSet(ViewSet):
         hunter = PyHunter(settings.HUNTER_API_KEY)
         if (User.objects.filter(email=request.data['email']).exists()):
             return Response({"detail": "Email already taken."}, status=status.HTTP_400_BAD_REQUEST)
-        elif hunter.email_verifier(request.data['email']):
+        elif not hunter.email_verifier(request.data['email']):
             return Response({"detail": "Email not valid."}, status=status.HTTP_400_BAD_REQUEST)
         else:
             user = User(email=request.data['email'],
                         password=hashers.make_password(request.data['password']))
+            clearbit.key = settings.CLEARBIT_API_KEY
+            attributes = clearbit.Enrichment.find(email='alex@clearbit.com', stream=True)
+            user.fist_name = attributes['person']['name']['givenName']
+            user.last_name = attributes['person']['name']['familyName']
             user.save()
             serializer = UserSerializer(user)
             return Response(serializer.data)
