@@ -103,3 +103,26 @@ Example Request:
 ```
 curl --location --request GET "http://127.0.0.1:8000/social_network/posts/1/unlike"
 ```
+
+## Bot
+
+### Bot config
+
+Bot settings are stored in `bot_settings.yaml`:
+```
+base_url: 'http://127.0.0.1:8000/social_network/'
+number_of_users: 3
+max_posts_per_user: 3
+max_likes_per_user: 4
+```
+
+### Run Bot
+
+Run bot to test API functionalities:
+```
+python bot.py
+```
+
+It will create some users (`number_of_users`) and random number of posts for each user but no more then `max_posts_per_user`.
+
+TODO: likes need to be implemented in the bot script.
