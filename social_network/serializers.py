@@ -5,7 +5,7 @@ from .models import User, Post, Like
 
 class UserSerializer(serializers.ModelSerializer):
     """
-    User Serializer
+    User Model Serializer
 
     """
     class Meta:
@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     """
-    Post Serializer
+    Post Model Serializer
 
     """
     class Meta:
@@ -25,7 +25,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 class LikeSerializer(serializers.ModelSerializer):
     """
-    Like Serializer
+    Like Model Serializer
 
     """
     class Meta:

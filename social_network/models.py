@@ -5,6 +5,7 @@ from django.db import models
 class User(AbstractUser):
     """
     User Model
+    Inherit the Abstract User and overrides some properties
 
     """
     username = None
