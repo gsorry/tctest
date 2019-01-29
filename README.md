@@ -1,15 +1,15 @@
 # tctest
+
 Simple REST API based social network in Django.
 Implements User registration, JWT authentication, Posts and Likes.
 
 ## Setup and run application
-1. Open /tcapp/settings.py Add `HUNTER_API_KEY` and `CLEARBIT_API_KEY` keys.
 
+1. Open /tcapp/settings.py Add `HUNTER_API_KEY` and `CLEARBIT_API_KEY` keys.
 2. Run migrations:
    ```
    python manage.py migrate
    ```
-
 3. Start application
    ```
    python manage.py runserver
@@ -19,24 +19,32 @@ Implements User registration, JWT authentication, Posts and Likes.
 
 ### Users
 
+#### Signup user
+
 POST users/signup
-http://127.0.0.1:8000/social_network/users/signup/
+`http://127.0.0.1:8000/social_network/users/signup/`
+
 BODY
-emailtest@test.com
-passwordtest
-Example Request
+email: test@test.com
+password: test
+
+Example Request:
 ```
 curl --location --request POST "http://127.0.0.1:8000/social_network/users/signup/" \
   --form "email=test@test.com" \
   --form "password=test"
 ```
 
-POST token Copy
-http://127.0.0.1:8000/social_network/token/
+#### Login user
+
+POST token
+`http://127.0.0.1:8000/social_network/token/`
+
 BODY
-emailtest@test.com
-passwordtest
-Example Request
+email: test@test.com
+password: test
+
+Example Request:
 ```
 curl --location --request POST "http://127.0.0.1:8000/social_network/token/" \
   --form "email=test@test.com" \
@@ -45,40 +53,53 @@ curl --location --request POST "http://127.0.0.1:8000/social_network/token/" \
 
 ### Posts
 
-GET posts 
-http://127.0.0.1:8000/social_network/posts/
+#### List posts
+
+GET posts
+`http://127.0.0.1:8000/social_network/posts/`
+
+Example Request:
 ```
-curl --location --request POST "http://127.0.0.1:8000/social_network/token/" \
-  --form "email=test@test.com" \
-  --form "password=test"
+curl --location --request GET "http://127.0.0.1:8000/social_network/posts/"
 ```
 
-POST posts 
-http://127.0.0.1:8000/social_network/posts/
+#### Create post
+
+POST posts
+`http://127.0.0.1:8000/social_network/posts/`
+
+Example Request:
 ```
 curl --location --request POST "http://127.0.0.1:8000/social_network/posts/" \
-  --data ""
+  --data "content=Lorem ipsum..."
 ```
 
-GET posts /1 
-http://127.0.0.1:8000/social_network/posts/1
+#### Get post
+
+GET posts/1
+`http://127.0.0.1:8000/social_network/posts/1`
+
+Example Request:
 ```
-curl --location --request GET "http://127.0.0.1:8000/social_network/posts/1" \
-  --data ""
+curl --location --request GET "http://127.0.0.1:8000/social_network/posts/1"
 ```
 
-GET posts /1/like 
-http://127.0.0.1:8000/social_network/posts/1/like
+#### Like post
+
+GET posts/1/like 
+`http://127.0.0.1:8000/social_network/posts/1/like`
+
+Example Request:
 ```
-curl --location --request GET "http://127.0.0.1:8000/social_network/posts/1/like" \
-  --data ""
+curl --location --request GET "http://127.0.0.1:8000/social_network/posts/1/like"
 ```
 
-GET posts /1/unlike 
-http://127.0.0.1:8000/social_network/posts/1/unlike
-```
-curl --location --request GET "http://127.0.0.1:8000/social_network/posts/1/unlike" \
-  --data ""
-```
+#### Unlike post
 
+GET posts/1/unlike 
+`http://127.0.0.1:8000/social_network/posts/1/unlike`
 
+Example Request:
+```
+curl --location --request GET "http://127.0.0.1:8000/social_network/posts/1/unlike"
+```
