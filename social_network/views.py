@@ -38,7 +38,7 @@ class UserViewSet(ViewSet):
         """
         hunter = PyHunter(settings.HUNTER_API_KEY)
 
-        if (User.objects.filter(email=request.data['email']).exists()):
+        if User.objects.filter(email=request.data['email']).exists():
             return Response({"detail": "Email already taken."}, status=status.HTTP_400_BAD_REQUEST)
 
         elif not hunter.email_verifier(request.data['email']):
@@ -102,6 +102,9 @@ class PostViewSet(ModelViewSet):
         user = request.user
         date = timezone.now()
 
+        if Like.objects.filter(user=user, post=post).exists():
+            return Response({"detail": "Post already liked."}, status=status.HTTP_400_BAD_REQUEST)
+
         like = Like(user=user, post=post, date=date)
         like.save()
 
@@ -121,6 +124,9 @@ class PostViewSet(ModelViewSet):
         """
         post = self.get_object()
         user = request.user
+
+        if not Like.objects.filter(user=user, post=post).exists():
+            return Response({"detail": "Post is not liked."}, status=status.HTTP_400_BAD_REQUEST)
 
         like = Like.objects.get(user=user, post=post)
         like.delete()
