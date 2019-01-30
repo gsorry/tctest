@@ -6,11 +6,15 @@ Implements User registration, JWT authentication, Posts and Likes.
 ## Setup and run application
 
 1. Open /tcapp/settings.py Add `HUNTER_API_KEY` and `CLEARBIT_API_KEY` keys.
-2. Run migrations:
+2. Set python path:
+   ```
+   export PYTHONPATH=`pwd`
+   ```
+3. Run migrations:
    ```
    python manage.py migrate
    ```
-3. Start application
+4. Start application
    ```
    python manage.py runserver
    ```
@@ -118,11 +122,18 @@ max_likes_per_user: 4
 
 ### Run Bot
 
-Run bot to test API functionalities:
-```
-python bot.py
-```
-
+1. Set python path:
+   ```
+   export PYTHONPATH=`pwd`
+   ```
+2. Check bot options:
+   ```
+   python bot.py --help
+   ```
+2. Run bot to test API functionalities:
+   ```
+   python bot.py [-s bot_settings.yaml]
+   ```
 It will create some users (`number_of_users`) and random number of posts for each user but no more then `max_posts_per_user`.
 
-TODO: likes need to be implemented in the bot script.
+After sorting users by number of posts, Bot sends likes for other posts no more then `max_likes_per_user`.
