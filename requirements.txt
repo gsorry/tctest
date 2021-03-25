@@ -7,7 +7,7 @@ clearbit==0.1.7
 Click==7.0
 cryptography==2.8
 Django==3.0.7
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 djangorestframework-simplejwt==4.4.0
 Faker==4.0.0
 idna==2.8
